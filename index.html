@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Bootfresco - The Alfresco Client</title>
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+	<link rel="stylesheet" type="text/css" href="css/sticky-footer-navbar.css" />
+	<link rel="stylesheet" type="text/css" href="css/main.css" />
+	<link rel="stylesheet" type="text/css" href="css/login.css" />
+
+	<script type="text/javascript" src="js/lib/jquery-2.0.3.js"></script>
+	<script type="text/javascript" src="js/lib/purl.js"></script>
+	<script type="text/javascript" src="js/bootstrap.js"></script>
+	<script type="text/javascript" src="js/utils.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+	<script>
+		loadStyle();
+	</script>
+
+	<div id="wrap">
+		<div class="container">
+			<div class="form-signin" role="form">
+				<h2 class="form-signin-heading">Sign in to Alfresco</h2>
+				<div class="input-group">
+					<span class="input-group-addon glyphicon glyphicon-globe"></span>
+					<input type="text" class="form-control" placeholder="Alfresco Server Url" required id="serverUrl" disabled="disabled" />
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon glyphicon glyphicon-user"></span>
+					<input type="text" class="form-control" placeholder="User Name" required autofocus id="userName" />
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon glyphicon glyphicon-star"></span>
+					<input type="password" class="form-control" placeholder="Password" required id="password" />
+				</div>
+				<div class="checkbox text-warning" data-toggle="popover" data-placement="right" data-animation="true" data-html="true" data-container="body" data-original-title="Share Services" data-trigger="hover">
+					<label class="checkbox-inline">
+						<input type="checkbox" value="true" id="enableShare" checked />
+						Enable Share Application Services?
+					</label>
+				</div>
+				<button class="btn btn-lg btn-success btn-block" type="button" id="loginbutton"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;Sign in</button>
+			</div>
+			<div id="msg"></div> 
+		</div>
+	</div>
+
+	<div id="footer">
+		<div class="container">
+			<p class="text-muted">Bootfresco - the Alfresco Bootstrap Client.</p>
+		</div>
+	</div>
+
+	<script>
+		$(document).ready(function () {
+			initialize();
+		});
+	</script>
+
+</body>
+
+</html>
+
+
+

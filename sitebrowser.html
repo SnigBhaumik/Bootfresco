@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Bootfresco - Site Browser</title>
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+	<link rel="stylesheet" type="text/css" href="css/sticky-footer-navbar.css" />
+	<link rel="stylesheet" type="text/css" href="css/main.css" />
+
+	<script type="text/javascript" src="js/lib/jquery-2.0.3.js"></script>
+	<script type="text/javascript" src="js/lib/purl.js"></script>
+	<script type="text/javascript" src="js/bootstrap.js"></script>
+	<script type="text/javascript" src="js/utils.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/component.sites.js"></script>
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+	<script>
+		checkUser();
+	</script>
+
+	<div class="modal fade" id="createSiteDialog" tabindex="-1" role="dialog" aria-labelledby="createSiteLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="createSiteLabel">Create New Site</h4>
+				</div>
+				<div class="modal-body">
+					<form role="form" class="form-horizontal">
+						<div class="form-group">
+							<label for="siteName" class="col-sm-3 control-label">Site Name</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="siteName" placeholder="Site Name" required autofocus />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="urlName" class="col-sm-3 control-label">URL Name</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="urlName" placeholder="Site URL Name" required />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="desc" class="col-sm-3 control-label">Description</label>
+							<div class="col-sm-9">
+								<textarea class="form-control" id="desc" placeholder="Site Description" rows="3"></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="siteVisibility" class="col-sm-3 control-label">Site Visibility</label>
+							<div class="col-sm-9">
+								<select class="form-control" id="siteVisibility">
+									<option value="PUBLIC">Public</option>
+									<option value="MODERATED">Moderated</option>
+									<option value="PRIVATE">Private</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Site Type</label>
+							<div class="col-sm-9">
+								<p class="form-control-static">Collaboration Site</p>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-off"></span>&nbsp;Cancel</button>
+					<button type="button" class="btn btn-success" id="btnCreateSite"><span class="glyphicon glyphicon-ok"></span>&nbsp;Create Site</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="themeDialog" tabindex="-1" role="dialog" aria-labelledby="themeDialogLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="themeDialogLabel">Bootfresco Theme</h4>
+				</div>
+				<div class="modal-body">
+					<form role="form" id="formTheme">
+						<div class="form-group">
+							<label for="themes">Choose from available themes</label>
+							<select id="themes" class="form-control">
+								<option value="">Default</option>
+								<option value="amelia">Amelia</option>
+								<option value="cerulean">Cerulean</option>
+								<option value="cyborg">Cyborg</option>
+								<option value="flatly">Flatly</option>
+								<option value="slate">Slate</option>
+								<option value="shamrock">Shamrock</option>
+								<option value="spacelab">Spacelab</option>
+								<option value="superhero">Superhero</option>
+								<option value="united">United</option>
+							</select>
+							<span class="help-block">Thanks to <a href="http://bootswatch.com/" target="_blank">Thomas Park</a> for these themes.</span>
+						</div>
+						<div class="form-group">
+							<label for="onlinetheme">Or, use a theme from the Web</label>
+							<input type="url" class="form-control" id="onlinetheme" placeholder="Theme Url" />
+							<span class="help-block">Clear this Url to use the chosen theme from above.</span>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-off"></span>&nbsp;Cancel</button>
+					<button type="button" class="btn btn-success" id="btnApplyTheme"><span class="glyphicon glyphicon-ok-sign"></span>&nbsp;Apply</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="wrap">
+		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand brand" href="#" title="Bootstrap client of Alfresco">Bootfresco</a>
+				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="landing.html"><span class="glyphicon glyphicon-home"></span>&nbsp;Home</a></li>
+						<li class="dropdown active">
+							<a id="dropRepos" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><span class="glyphicon glyphicon-book"></span>&nbspBrowser&nbsp;<b class="caret"></b></a>
+							<ul class="dropdown-menu" aria-labelledby="dropRepos" role="menu">
+								<li role="presentation"><a href="browser.html" tabindex="-1" role="menuitem"><span class="glyphicon glyphicon-book"></span>&nbsp;Folder Navigator</a></li>
+								<li class="active"><a href="sitebrowser.html" tabindex="-1" role="menuitem"><span class="glyphicon glyphicon-globe"></span>&nbsp;Site Navigator</a></li>
+								<li role="presentation"><a href="catbrowser.html" tabindex="-1" role="menuitem"><span class="glyphicon glyphicon-tag"></span>&nbsp;Category Navigator</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+							<a id="dropMine" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><span class="glyphicon glyphicon-inbox"></span>&nbspMy Stuff&nbsp;<b class="caret"></b></a>
+							<ul class="dropdown-menu" aria-labelledby="dropMine" role="menu">
+								<li role="presentation"><a href="profile.html" tabindex="-1" role="menuitem"><span class="glyphicon glyphicon-user"></span>&nbsp;My Profile</a></li>
+								<li role="presentation"><a href="tasks.html" tabindex="-1" role="menuitem"><span class="glyphicon glyphicon-tasks"></span>&nbsp;My Tasks</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+							<a id="dropAdmin" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><span class="glyphicon glyphicon-star"></span>&nbsp;Administration&nbsp;<b class="caret"></b></a>
+							<ul class="dropdown-menu" aria-labelledby="dropAdmin" role="menu">
+								<li role="presentation"><a href="users.html" tabindex="-1" role="menuitem"><span class="glyphicon glyphicon-user"></span>&nbsp;Users</a></li>
+								<li role="presentation"><a href="groups.html" tabindex="-1" role="menuitem"><span class="glyphicon glyphicon-tower"></span>&nbsp;Groups</a></li>
+								<li class="divider" role="presentation"></li>
+								<li role="presentation"><a href="repos.html" tabindex="-1" role="menuitem"><span class="glyphicon glyphicon-share"></span>&nbsp;Repository</a></li>
+								<li role="presentation"><a href="cats.html" tabindex="-1" role="menuitem"><span class="glyphicon glyphicon-tags"></span>&nbsp;Categories</a></li>
+							</ul>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							<a id="dropOptions" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><span class="glyphicon glyphicon-wrench"></span>&nbsp;Options&nbsp;<b class="caret"></b></a>
+							<ul class="dropdown-menu" aria-labelledby="dropOptions" role="menu">
+								<li role="presentation"><a href="#" tabindex="-1" role="menuitem" data-toggle="modal" data-target="#themeDialog" id="changeTheme"><span class="glyphicon glyphicon-camera"></span>&nbsp;Bootfresco Theme</a></li>
+							</ul>
+						</li>
+						<li><a href="index.html"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Sign out</a></li>
+					</ul>
+					<form class="navbar-form navbar-right">
+						<div class="form-group" style="margin-top: 4px">
+							<label class="sr-only" for="keyword">Keyword</label>
+							<input type="text" class="form-control input-sm" id="keyword" placeholder="Enter Search keyword" />
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div id="msg"></div> 
+			<div class="page-header"><h1><span class="glyphicon glyphicon-globe"></span>&nbsp;Site Browser</h1></div>
+			<div class="panel panel-warning" id="allSiteList"></div>
+		</div>
+	</div>
+
+	<div id="footer"></div>
+
+	<script>
+		$(document).ready(function () {
+			loadStyle();
+			$('#btnApplyTheme').click(function () {
+				applyStyle();
+			});
+			$('#allSiteList').allSites({
+			});
+		});
+	</script>
+
+</body>
+
+</html>
+
+
+
