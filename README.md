@@ -19,3 +19,6 @@ Technical Stuff:
 	2. Interacts with Alfresco using AJAX calls on Web Scripts
 	3. Interacts with Alfresco Share using AJAX calls on Web Scripts
 	4. CSS3, HTML5, jQuery, Bootstrap 3.1
+
+Please note that Bootfresco is still in Development Beta stage.
+We target to release stable version in a month or so.
